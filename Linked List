@@ -1,0 +1,145 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int data;
+    struct node *next;
+};
+struct node *start = NULL;
+void insert_begin(int);
+void insert_end(int);
+void traverse();
+void delete_begin();
+void delete_end();
+int count = 0;
+int main () {
+int x, data;
+
+for (;;) {
+        printf("\n=================== Program Linked List ====================\n\n");
+        printf("1. Menginput Elemen di awal Linked List.\n");
+        printf("2. Menginput Elemen di akhir Lingked List.\n");
+        printf("3. Mengecek Elemen Pada Linked List.\n");
+        printf("4. Menghapus Elemen di awal Linked List.\n");
+        printf("5. Menghapus Elemen di akhir Linked List.\n");
+        printf("6. Exit\n") ;
+        printf("\nPilih Menu : ");
+        scanf("%d", &x);
+
+        if (x == 1) {
+                printf("\nInput Nilai Elemen : ");
+        scanf("%d", &data);
+        insert_begin(data);
+        }
+
+        else if (x == 2) {
+                printf("\nInput Nilai Elemen : ");
+                scanf("%d", &data);
+                insert_end(data);
+                }
+
+                else if (x == 3)
+                    traverse();
+                else if (x == 4)
+                    delete_begin();
+                else if (x == 5)
+                    delete_end();
+                else if (x == 6)
+                    break;
+                else
+                    printf("\nInput Salah, Mohon Input Ulang.\n");
+                    }
+                    return 0;
+}
+void insert_begin(int i) {
+    struct node *t;
+    t = (struct node*)malloc(sizeof(struct node));
+    t -> data = i;
+    count++;
+
+    if (start == NULL) {
+            start = t;
+            start->next = NULL;
+            return;
+            }
+            t->next = start;
+            start = t;
+            }
+
+void insert_end(int i) {
+    struct node *t, *temp;
+    t = (struct node*)malloc(sizeof(struct node));
+    t -> data = i;
+    count++;
+
+    if (start == NULL) {
+            start = t;
+            start->next = NULL;
+            return;
+            }
+            temp = start;
+            while (temp->next != NULL)
+                temp = temp->next;
+            temp->next = t;
+            t->next   = NULL;
+            }
+
+            void traverse() {
+                struct node *t;
+                t = start;
+                if (t == NULL) {
+                        printf("\nLinked List Kosong.\n");
+                return;
+                }
+
+                printf("\nTerdapat %d elemen di linked List.\n", count);
+                while (t->next != NULL) {
+                        printf("%d\n", t->data);
+                        t = t->next;
+                        }
+                        printf("%d\n", t->data);
+                        }
+                void delete_begin() {
+                struct node *t;
+                int n;
+                if (start == NULL) {
+                printf("\nLinked List Kosong.\n");
+                return;
+                }
+
+                n = start->data;
+                t = start->next;
+                free(start);
+                start = t;
+                count--;
+                printf("\nPenghapusan Elemen Awal %d Berhasil.\n", n);
+                }
+
+                void delete_end() {
+                    struct node *t, *u;
+                    int n;
+                    if (start == NULL) {
+                            printf("\nLinked List Kosong.\n");
+                            return;
+                            }
+
+                    count--;
+                    if (start->next == NULL) {
+                        n = start->data;
+                        free(start);
+                        start = NULL;
+                        printf("\nPenghapusan Elemen Akhir %d Berhasil.\n", n);
+                        return;
+                        }
+
+                        t = start;
+                        while (t->next != NULL) {
+                            u = t;
+                            t = t->next;
+                            }
+
+                            n = t->data;
+                            u->next = NULL;
+                            free(t);
+                            printf( "\nPenghapusan Elemen Akhir %d Berhasil.\n ", n);
+                            }
